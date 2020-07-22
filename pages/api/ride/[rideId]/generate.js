@@ -48,18 +48,28 @@ handler.post(async (req, res) => {
   let index = 0;
 
   while (index <= trackUris.length) {
-    let part = trackUris.slice(index);
-
-    await axios.post(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-      part,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
+    let part = trackUris.slice(
+      index,
+      index + 100 > trackUris.length ? trackUris.length : index + 100
     );
+
+    try {
+      let asd = await axios.post(
+        `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+        part,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(asd);
+    } catch (e) {
+      console.log(e);
+    }
+
+    console.log(asd);
 
     index += 100;
   }
