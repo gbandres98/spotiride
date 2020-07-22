@@ -52,6 +52,7 @@ export default class ChooseList extends React.Component {
           <label>Ponle un nombre:</label>
           <input ref={this.createRideFormRef} />
           <button onClick={this.createRide}>Crear ride</button>
+          <button onClick={this.joinRideForm}>Unirse a ride</button>
         </div>
       )}
       {this.state.step === 2 && (
@@ -59,6 +60,7 @@ export default class ChooseList extends React.Component {
           <label>Introduce el código del ride:</label>
           <input ref={this.joinRideFormRef} />
           <button onClick={this.joinRide}>Unirse a ride</button>
+          <button onClick={this.createRideForm}>Crear ride</button>
         </div>
       )}
       <MyLists />
