@@ -22,6 +22,7 @@ class Ride extends React.Component {
       buttonText: "Añadir mi música a la playlist",
       generateButtonText: "Crear playlist en mi cuenta de Spotify",
       copyButtonText: "Compartir",
+      interval: null,
     };
 
     this.addButtonRef = React.createRef();
@@ -39,6 +40,15 @@ class Ride extends React.Component {
     }
 
     this.fetchRideInfo();
+
+    const interval = setInterval(this.fetchRideInfo, 10000);
+    this.setState({
+      interval,
+    });
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(this.state.interval);
   };
 
   fetchRideInfo = async () => {
