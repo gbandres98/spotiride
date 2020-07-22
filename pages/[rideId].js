@@ -8,8 +8,8 @@ const authEndpoint = "https://accounts.spotify.com/authorize";
 const clientId = "d62061d804d64e119a0a13706e530e46";
 const scopes = [
   "user-top-read",
-  "playlist-modify-public",
   "playlist-modify-private",
+  "playlist-modify-public",
 ];
 
 class Ride extends React.Component {
@@ -142,6 +142,9 @@ class Ride extends React.Component {
           <MyMusic onChange={this.handleTrackSelectionChange} />
           <div>
             <button onClick={this.addToRide}>{this.state.buttonText}</button>
+            <button onClick={this.generate}>
+              {this.state.generateButtonText}
+            </button>
           </div>
         </div>
       )}

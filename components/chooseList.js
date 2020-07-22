@@ -30,7 +30,6 @@ export default class ChooseList extends React.Component {
   createRide = async () => {
     const res = await axios.post(`${window.location.origin}/api/ride`, {
       name: this.createRideFormRef.current.value,
-      token: localStorage.getItem("token"),
     });
 
     Router.push(`/${res.data._id}`);

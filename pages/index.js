@@ -5,8 +5,8 @@ const authEndpoint = "https://accounts.spotify.com/authorize";
 const clientId = "d62061d804d64e119a0a13706e530e46";
 const scopes = [
   "user-top-read",
-  "playlist-modify-public",
   "playlist-modify-private",
+  "playlist-modify-public",
 ];
 
 export default class Home extends React.Component {

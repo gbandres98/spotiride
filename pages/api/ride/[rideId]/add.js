@@ -54,61 +54,6 @@ handler.post(async (req, res) => {
     .collection("rides")
     .findOneAndReplace({ _id: ObjectId(rideId) }, ride);
 
-  while (true) {
-    let response = await axios.get(
-      `https://api.spotify.com/v1/playlists/${ride.playlistId}/tracks`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (response.data.items.length === 0) break;
-
-    const oldTracks = response.data.items.map((element) => ({
-      uri: element.track.uri,
-    }));
-
-    await axios.delete(
-      `https://api.spotify.com/v1/playlists/${ride.playlistId}/tracks`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        data: { tracks: oldTracks },
-      }
-    );
-  }
-
-  const trackUris = ride.tracks
-    .sort((track1, track2) => track1.position - track2.position)
-    .map((track) => track.uri);
-
-  let index = 0;
-
-  while (index <= trackUris.length) {
-    let part = trackUris.slice(
-      index,
-      index + 100 > trackUris.length ? trackUris.length : index + 100
-    );
-
-    await axios.post(
-      `https://api.spotify.com/v1/playlists/${ride.playlistId}/tracks`,
-      part,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    index += 100;
-  }
-
   const doc = await req.db
     .collection("rides")
     .findOne({ _id: ObjectId(req.query.rideId) });
