@@ -18,8 +18,8 @@ class Ride extends React.Component {
     this.state = {
       ride: null,
       selected: "short_term",
-      buttonText: "Añadir a la playlist",
-      generateButtonText: "Crear playlist en mi Spotify",
+      buttonText: "Añadir mi música a la playlist",
+      generateButtonText: "Crear playlist en mi cuenta de Spotify",
     };
 
     this.addButtonRef = React.createRef();

@@ -45,18 +45,28 @@ handler.post(async (req, res) => {
     .sort((track1, track2) => track1.position - track2.position)
     .map((track) => track.uri);
 
-  const added = await axios.post(
-    `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-    trackUris,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  let index = 0;
 
-  res.json(added.data);
+  while (index <= trackUris.length) {
+    let part = trackUris.slice(index);
+
+    await axios.post(
+      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+      part,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    index += 100;
+  }
+
+  res.json({
+    result: "ok",
+  });
 });
 
 export default handler;
