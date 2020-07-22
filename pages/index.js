@@ -13,10 +13,16 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      redirectUri: "",
+    };
   }
 
   componentDidMount() {
+    this.setState({
+      redirectUri: window.location.origin,
+    });
+
     const hash = window.location.hash
       .substring(1)
       .split("&")
@@ -58,7 +64,7 @@ export default class Home extends React.Component {
       {!this.state.token && (
         <a
           href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${
-            window.location.origin
+            this.state.redirectUri
           }&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`}
         >
           Login
