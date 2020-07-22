@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "next/router";
 import MyMusic from "../components/myMusic";
+import Router from "next/router";
 
 const authEndpoint = "https://accounts.spotify.com/authorize";
 const clientId = "d62061d804d64e119a0a13706e530e46";
@@ -20,6 +21,7 @@ class Ride extends React.Component {
       selected: "short_term",
       buttonText: "Añadir mi música a la playlist",
       generateButtonText: "Crear playlist en mi cuenta de Spotify",
+      copyButtonText: "Compartir",
     };
 
     this.addButtonRef = React.createRef();
@@ -100,23 +102,40 @@ class Ride extends React.Component {
     this.setState({ generateButtonText: "Terminado!" });
   };
 
+  copy = () => {
+    navigator.clipboard.writeText(window.location);
+    this.setState({
+      copyButtonText: "Copiado!",
+    });
+  };
+
+  back = () => {
+    Router.push("/play");
+  };
+
   render = () => (
     <div>
       {this.state.ride && (
         <div>
           <h1>Playlist: {this.state.ride.name}</h1>
-          Participantes:{" "}
+          Participantes:
           {this.state.ride.users.map((user) => (
             <span className="username" key={user.id}>
               {user.name}
             </span>
           ))}
+          <div className="share">
+            <button onClick={this.copy}>{this.state.copyButtonText}</button>
+            <button onClick={this.back}>Volver</button>
+          </div>
           <h2>¿Qué música quieres añadir a la playlist?</h2>
           <MyMusic onChange={this.handleTrackSelectionChange} />
-          <button onClick={this.addToRide}>{this.state.buttonText}</button>
-          <button onClick={this.generate}>
-            {this.state.generateButtonText}
-          </button>
+          <div>
+            <button onClick={this.addToRide}>{this.state.buttonText}</button>
+            <button onClick={this.generate}>
+              {this.state.generateButtonText}
+            </button>
+          </div>
         </div>
       )}
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Router from "next/router";
+import MyLists from "./myLists";
 
 export default class ChooseList extends React.Component {
   constructor(props) {
@@ -47,19 +48,20 @@ export default class ChooseList extends React.Component {
         </div>
       )}
       {this.state.step === 1 && (
-        <div>
+        <div className="form">
           <label>Ponle un nombre:</label>
           <input ref={this.createRideFormRef} />
           <button onClick={this.createRide}>Crear ride</button>
         </div>
       )}
       {this.state.step === 2 && (
-        <div>
+        <div className="form">
           <label>Introduce el código del ride:</label>
           <input ref={this.joinRideFormRef} />
           <button onClick={this.joinRide}>Unirse a ride</button>
         </div>
       )}
+      <MyLists />
     </div>
   );
 }

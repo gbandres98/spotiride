@@ -64,9 +64,11 @@ export default class MyMusic extends React.Component {
             onClick={this.changeHandler("short_term")}
           >
             <h3>Últimos días:</h3>
-            {this.state.short_term.map((track) => (
-              <img className="album" src={track.album.images[0].url} />
-            ))}
+            <div className="albumList">
+              {this.state.short_term.map((track) => (
+                <img className="album" src={track.album.images[0].url} />
+              ))}
+            </div>
           </div>
           <div
             className={
@@ -77,9 +79,11 @@ export default class MyMusic extends React.Component {
             onClick={this.changeHandler("medium_term")}
           >
             <h3>Top reciente:</h3>
-            {this.state.medium_term.map((track) => (
-              <img className="album" src={track.album.images[0].url} />
-            ))}
+            <div className="albumList">
+              {this.state.medium_term.map((track) => (
+                <img className="album" src={track.album.images[0].url} />
+              ))}
+            </div>
           </div>
           <div
             className={
@@ -90,9 +94,11 @@ export default class MyMusic extends React.Component {
             onClick={this.changeHandler("long_term")}
           >
             <h3>Top global:</h3>
-            {this.state.long_term.map((track) => (
-              <img className="album" src={track.album.images[0].url} />
-            ))}
+            <div className="albumList">
+              {this.state.long_term.map((track) => (
+                <img className="album" src={track.album.images[0].url} />
+              ))}
+            </div>
           </div>
         </div>
       )}

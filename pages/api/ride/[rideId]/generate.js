@@ -69,8 +69,6 @@ handler.post(async (req, res) => {
       console.log(e);
     }
 
-    console.log(asd);
-
     index += 100;
   }
 

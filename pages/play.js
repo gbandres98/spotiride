@@ -36,6 +36,11 @@ export default class Home extends React.Component {
     }
   };
 
+  logOut = () => {
+    localStorage.removeItem("token");
+    Router.push("/");
+  };
+
   render = () => (
     <main>
       <h1 className="title">SpotiRide</h1>
@@ -43,6 +48,8 @@ export default class Home extends React.Component {
       <p className="description">Lo de las playlists</p>
 
       <ChooseList />
+
+      <button onClick={this.logOut}>Cerrar sesión</button>
     </main>
   );
 }
