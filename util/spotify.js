@@ -113,24 +113,27 @@ export const addTracksToPlaylist = async (playlistId, tracks) => {
     .map((track) => track.uri);
 
   let index = 0;
+  try {
+    while (index < trackUris.length) {
+      let part = trackUris.slice(
+        index,
+        index + 100 > trackUris.length ? trackUris.length : index + 100
+      );
 
-  while (index <= trackUris.length) {
-    let part = trackUris.slice(
-      index,
-      index + 100 > trackUris.length ? trackUris.length : index + 100
-    );
+      await axios.post(
+        `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+        part,
+        {
+          headers: {
+            Authorization: `Bearer ${spotirideToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    await axios.post(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-      part,
-      {
-        headers: {
-          Authorization: `Bearer ${spotirideToken}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    index += 100;
+      index += 100;
+    }
+  } catch (e) {
+    console.log(e);
   }
 };
