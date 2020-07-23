@@ -15,32 +15,6 @@ handler.post(async (req, res) => {
     .collection("rides")
     .findOne({ _id: ObjectId(rideId) });
 
-  const userData = await axios.get(`https://api.spotify.com/v1/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  const userId = userData.data.id;
-
-  const created = await axios.post(
-    `https://api.spotify.com/v1/users/${userId}/playlists`,
-    {
-      name: ride.name,
-      description: `Playlist creada para ${ride.users.map(
-        (user) => `${user.name} `
-      )}por SpotiRide!`,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  const playlistId = created.data.id;
-
   const trackUris = ride.tracks
     .sort((track1, track2) => track1.position - track2.position)
     .map((track) => track.uri);
