@@ -113,7 +113,9 @@ class Ride extends React.Component {
   };
 
   copy = () => {
-    navigator.clipboard.writeText(window.location);
+    if (navigator.clipboard) navigator.clipboard.writeText(window.location);
+    else window.clipboardData.setData("Text", window.location);
+
     this.setState({
       copyButtonText: "Copiado!",
     });
