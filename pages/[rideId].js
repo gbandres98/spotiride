@@ -22,12 +22,12 @@ class Ride extends React.Component {
       selected: "short_term",
       buttonText: "Añadir mi música a la playlist",
       generateButtonText: "Crear playlist en mi cuenta de Spotify",
-      copyButtonText: "Compartir",
+      copyButtonText: "Compartir:",
       interval: null,
       refreshIframe: 0,
     };
 
-    this.addButtonRef = React.createRef();
+    this.copyButtonRef = React.createRef();
   }
 
   componentDidMount = async () => {
@@ -117,12 +117,22 @@ class Ride extends React.Component {
   };
 
   copy = () => {
-    if (navigator.clipboard) navigator.clipboard.writeText(window.location);
-    else window.clipboardData.setData("Text", window.location);
+    this.copyButtonRef.current.focus();
+    this.copyButtonRef.current.select();
+
+    document.execCommand("copy");
 
     this.setState({
       copyButtonText: "Copiado!",
     });
+
+    setTimeout(
+      () =>
+        this.setState({
+          copyButtonText: "Compartir:",
+        }),
+      5000
+    );
   };
 
   back = () => {
@@ -145,8 +155,17 @@ class Ride extends React.Component {
                 ))}
               </div>
               <div className="share">
-                <button onClick={this.copy}>{this.state.copyButtonText}</button>
-                <button onClick={this.back}>Volver</button>
+                <div onClick={this.copy}>
+                  {this.state.copyButtonText}
+                  <input
+                    className="shareInput"
+                    ref={this.copyButtonRef}
+                    value={`${window.location}`}
+                  />
+                </div>
+                <div>
+                  <button onClick={this.back}>Volver</button>
+                </div>
               </div>
             </div>
             <PlaylistWidget
