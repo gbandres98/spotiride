@@ -43,9 +43,8 @@ export default class ChooseList extends React.Component {
   render = () => (
     <div>
       {this.state.step === 0 && (
-        <div>
+        <div className="createRideContainer">
           <button onClick={this.createRideForm}>Crear ride</button>
-          <button onClick={this.joinRideForm}>Unirse a ride</button>
         </div>
       )}
       {this.state.step === 1 && (
@@ -53,7 +52,6 @@ export default class ChooseList extends React.Component {
           <label>Ponle un nombre:</label>
           <input ref={this.createRideFormRef} />
           <button onClick={this.createRide}>Crear ride</button>
-          <button onClick={this.joinRideForm}>Unirse a ride</button>
         </div>
       )}
       {this.state.step === 2 && (
