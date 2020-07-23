@@ -182,6 +182,7 @@ input {
 
 .share {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .rideListElement {
@@ -194,4 +195,12 @@ input {
 
 h3 {
   margin-bottom: 5px;
+}
+
+@media (min-width: 600px) {
+  .playlistInfo {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
 }

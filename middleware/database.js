@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 import nextConnect from "next-connect";
 
 const client = new MongoClient(
-  "mongodb+srv://spotiride:spotiridesecret@spotiride0.eaous.mongodb.net/spotiride?retryWrites=true&w=majority",
+  `mongodb+srv://${process.env.MONGODB_NAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_NAME}0.eaous.mongodb.net/${process.env.MONGODB_COLLECTION}?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -12,7 +12,7 @@ const client = new MongoClient(
 async function database(req, res, next) {
   if (!client.isConnected()) await client.connect();
   req.dbClient = client;
-  req.db = client.db("spotiride");
+  req.db = client.db(process.env.MONGODB_COLLECTION);
   return next();
 }
 

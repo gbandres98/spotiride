@@ -3,6 +3,7 @@ import axios from "axios";
 import { withRouter } from "next/router";
 import MyMusic from "../components/myMusic";
 import Router from "next/router";
+import PlaylistWidget from "../components/playlistWidget";
 
 const authEndpoint = "https://accounts.spotify.com/authorize";
 const clientId = "d62061d804d64e119a0a13706e530e46";
@@ -23,6 +24,7 @@ class Ride extends React.Component {
       generateButtonText: "Crear playlist en mi cuenta de Spotify",
       copyButtonText: "Compartir",
       interval: null,
+      refreshIframe: 0,
     };
 
     this.addButtonRef = React.createRef();
@@ -36,7 +38,7 @@ class Ride extends React.Component {
         window.location.origin
       }&scope=${scopes.join("%20")}&state=${
         this.props.router.query.rideId
-      }&response_type=token&show_dialog=true`;
+      }&response_type=token&show_dialog=false`;
     }
 
     this.fetchRideInfo();
@@ -94,7 +96,9 @@ class Ride extends React.Component {
 
     this.fetchRideInfo();
 
-    this.setState({ buttonText: "Terminado!" });
+    this.setState({
+      buttonText: "Terminado!",
+    });
   };
 
   generate = async () => {
@@ -129,19 +133,29 @@ class Ride extends React.Component {
     <div>
       {this.state.ride && (
         <div>
-          <h1>Playlist: {this.state.ride.name}</h1>
-          Participantes:
-          {this.state.ride.users.map((user) => (
-            <span className="username" key={user.id}>
-              {user.name}
-            </span>
-          ))}
-          <div className="share">
-            <button onClick={this.copy}>{this.state.copyButtonText}</button>
-            <button onClick={this.back}>Volver</button>
+          <div className="playlistInfo">
+            <div>
+              <h1>Playlist: {this.state.ride.name}</h1>
+              Participantes:
+              {this.state.ride.users.map((user) => (
+                <span className="username" key={user.id}>
+                  {user.name}
+                </span>
+              ))}
+              <div className="share">
+                <button onClick={this.copy}>{this.state.copyButtonText}</button>
+                <button onClick={this.back}>Volver</button>
+              </div>
+            </div>
+            <PlaylistWidget
+              playlistId={this.state.ride.playlistId}
+              refresh={this.state.refreshIframe}
+            />
           </div>
-          <h2>¿Qué música quieres añadir a la playlist?</h2>
-          <MyMusic onChange={this.handleTrackSelectionChange} />
+          <div>
+            <h2>¿Qué música quieres añadir a la playlist?</h2>
+            <MyMusic onChange={this.handleTrackSelectionChange} />
+          </div>
           <div>
             <button onClick={this.addToRide}>{this.state.buttonText}</button>
           </div>

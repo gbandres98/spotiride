@@ -66,7 +66,7 @@ export default class Home extends React.Component {
           className="btn"
           href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${
             this.state.redirectUri
-          }&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`}
+          }&scope=${scopes.join("%20")}&response_type=token&show_dialog=false`}
         >
           Login
         </a>

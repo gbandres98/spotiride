@@ -12,7 +12,7 @@ export default class MyLists extends React.Component {
   componentDidMount = async () => {
     const res = await axios.get(`${window.location.origin}/api/ride`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        token: `${localStorage.getItem("token")}`,
       },
     });
 
