@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #f9f9f9;
 }
 
 * {
@@ -203,4 +204,15 @@ h3 {
     justify-content: space-around;
     margin-top: 20px;
   }
+}
+
+.participants {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 20px;
+  align-items: baseline;
+}
+
+.participants span {
+  margin-bottom: 10px;
 }

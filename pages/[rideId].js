@@ -136,12 +136,14 @@ class Ride extends React.Component {
           <div className="playlistInfo">
             <div>
               <h1>Playlist: {this.state.ride.name}</h1>
-              Participantes:
-              {this.state.ride.users.map((user) => (
-                <span className="username" key={user.id}>
-                  {user.name}
-                </span>
-              ))}
+              <div className="participants">
+                Participantes:
+                {this.state.ride.users.map((user) => (
+                  <span className="username" key={user.id}>
+                    {user.name}
+                  </span>
+                ))}
+              </div>
               <div className="share">
                 <button onClick={this.copy}>{this.state.copyButtonText}</button>
                 <button onClick={this.back}>Volver</button>
